@@ -4,14 +4,15 @@ import os
 ARQUIVO = "data.json"
 
 class Usuario:
-    def __init__(self, nome, senha, email):
+    def __init__(self, nome, senha, email, peso, altura):
         self.nome = nome
         self.senha = senha
         self.email = email
-
+        self.peso = peso
+        self.altura = altura
     def to_dict(self):
         """Transforma objeto em dicionário para JSON"""
-        return {"nome": self.nome, "senha": self.senha, "email": self.email}
+        return {"nome": self.nome, "senha": self.senha, "email": self.email, "peso" : self.peso, "altura": self.altura}
 
 def carregar_usuarios():
     """Carrega todos os usuários do JSON"""

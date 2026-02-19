@@ -4,6 +4,13 @@
             "nome": "rafa",
             "senha": "123",
             "email": "r4f4"
+        },
+        {
+            "nome": "rafa",
+            "senha": "123",
+            "email": "32",
+            "peso": "70",
+            "altura": "150"
         }
     ]
 }

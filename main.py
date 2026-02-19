@@ -18,8 +18,10 @@ def cadastro():
     nome = input("Seu nome: ").strip()
     senha = input("Sua senha: ").strip()
     email = input("Seu email: ").strip()
+    peso = input("Seu peso : ").strip()
+    altura = input("Sua altura : ").strip()
 
-    if not nome or not senha or not email:
+    if not nome or not senha or not email or not peso or not altura:
         print("Todos os campos são obrigatórios!")
         input("Pressione ENTER para voltar ao menu")
         return
@@ -32,7 +34,7 @@ def cadastro():
             input("Pressione ENTER para voltar ao menu")
             return
 
-    usuario = Usuario(nome, senha, email)
+    usuario = Usuario(nome, senha, email, peso, altura)
     salvar_usuario(usuario)
     print("Cadastro realizado com sucesso!")
     input("Pressione ENTER para voltar ao menu")
@@ -57,7 +59,6 @@ def trocar_senha(usuario_logado):
     limpar()
     print("=== TROCAR SENHA ===")
     senha_atual = input("Digite sua senha atual: ").strip()
-
     usuarios = carregar_usuarios()
     for u in usuarios:
         if u["nome"] == usuario_logado and u["senha"] == senha_atual:
@@ -71,6 +72,11 @@ def trocar_senha(usuario_logado):
             return
     print("Senha incorreta!")
     input("Pressione ENTER para voltar ao menu")
+    
+    
+def alterar_informações(altura, peso):
+    print(altura)
+    print(peso)
 
 # ===== LOOP PRINCIPAL =====
 usuario_logado = None
@@ -85,11 +91,15 @@ while True:
             while True:
                 limpar()
                 print("=== MENU USUÁRIO ===")
-                print("1 - Trocar senha")
                 print("0 - Logout")
+                print("1 - Trocar senha")
+                print("2 - Alterar configurações do perfil")
                 escolha = input("Digite aqui: ").strip()
                 if escolha == "1":
                     trocar_senha(usuario_logado)
+
+                elif escolha == "2":
+                    alterar_informações(usuario_logado)
                 elif escolha == "0":
                     usuario_logado = None
                     break
