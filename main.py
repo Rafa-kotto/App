@@ -1,47 +1,104 @@
 from utils import limpar
+from models import Usuario, salvar_usuario, carregar_usuarios, atualizar_senha
 
-limpar()
+# ===== FUNÇÕES =====
+
 def tela_inicial():
-    global nome, senha
-    print ("Olá bem vindo ao meu App fit")
-    print("Para primeiro acesso digite 1, caso já tenha um usuário digite 2")
-    comeco = input("Digite aqui :") 
-    if comeco == "1" : 
-        limpar()
-    print("Crie seu cadastro")
-    nome = input("Seu nome : ").strip()
-    senha = input("Sua senha : ").strip()
-    email = input("Seu email : ").strip()
-    if not nome or not senha or not email:
-        print("Todos os campos são obrigatorios")
-    else:
-        print("Cadastrado com sucesso!")
-        limpar()
-
-tela_inicial()
-def tela_senha():
-    print("para alterar sua senha insira seu usuario e senha atual")
-    usuariodigitado = input("Seu usuario : ").strip()
-    senhadigitada = input("Sua senha : ").strip()
     limpar()
-    if usuariodigitado == nome and senhadigitada == senha:
-        senhanova = input("Digite sua nova senha : ")
-    
-        while senhanova == senha:
-            print("Sua nova senha deve ser diferente da atual, tente novamente.")
-            senhanova = input("Digite sua nova senha : ")
-            ##mexi aqui, agora deu boa
-        novasenha = senhanova 
+    print("=== BEM VINDO AO APP FIT ===")
+    print("1 - Criar conta")
+    print("2 - Login")
+    print("0 - Sair")
+    opcao = input("Digite aqui: ").strip()
+    return opcao
 
+def cadastro():
+    limpar()
+    print("=== CADASTRO ===")
+    nome = input("Seu nome: ").strip()
+    senha = input("Sua senha: ").strip()
+    email = input("Seu email: ").strip()
+
+    if not nome or not senha or not email:
+        print("Todos os campos são obrigatórios!")
+        input("Pressione ENTER para voltar ao menu")
+        return
+
+    # Verifica se email já existe
+    usuarios = carregar_usuarios()
+    for u in usuarios:
+        if u["email"] == email:
+            print("Email já cadastrado!")
+            input("Pressione ENTER para voltar ao menu")
+            return
+
+    usuario = Usuario(nome, senha, email)
+    salvar_usuario(usuario)
+    print("Cadastro realizado com sucesso!")
+    input("Pressione ENTER para voltar ao menu")
+
+def login():
+    limpar()
+    print("=== LOGIN ===")
+    nome = input("Seu nome: ").strip()
+    senha = input("Sua senha: ").strip()
+
+    usuarios = carregar_usuarios()
+    for u in usuarios:
+        if u["nome"] == nome and u["senha"] == senha:
+            print(f"Bem-vindo {nome}!")
+            input("Pressione ENTER para voltar ao menu")
+            return nome  # retorna o usuário logado
+    print("Usuário ou senha incorretos!")
+    input("Pressione ENTER para voltar ao menu")
+    return None
+
+def trocar_senha(usuario_logado):
+    limpar()
+    print("=== TROCAR SENHA ===")
+    senha_atual = input("Digite sua senha atual: ").strip()
+
+    usuarios = carregar_usuarios()
+    for u in usuarios:
+        if u["nome"] == usuario_logado and u["senha"] == senha_atual:
+            nova_senha = input("Digite sua nova senha: ").strip()
+            while nova_senha == senha_atual:
+                print("Nova senha deve ser diferente da atual!")
+                nova_senha = input("Digite sua nova senha: ").strip()
+            atualizar_senha(usuario_logado, nova_senha)
+            print("Senha atualizada com sucesso!")
+            input("Pressione ENTER para voltar ao menu")
+            return
+    print("Senha incorreta!")
+    input("Pressione ENTER para voltar ao menu")
+
+# ===== LOOP PRINCIPAL =====
+usuario_logado = None
+while True:
+    opcao = tela_inicial()
+
+    if opcao == "1":
+        cadastro()
+    elif opcao == "2":
+        usuario_logado = login()
+        if usuario_logado:
+            while True:
+                limpar()
+                print("=== MENU USUÁRIO ===")
+                print("1 - Trocar senha")
+                print("0 - Logout")
+                escolha = input("Digite aqui: ").strip()
+                if escolha == "1":
+                    trocar_senha(usuario_logado)
+                elif escolha == "0":
+                    usuario_logado = None
+                    break
+                else:
+                    print("Opção inválida!")
+                    input("Pressione ENTER para voltar ao menu")
+    elif opcao == "0":
+        print("Saindo do App Fit...")
+        break
     else:
-        print("Algo esta errado verifique o usuario e a senha") 
-    
-    print(f"Senha atual agora é: {novasenha}")
-
-##teste ok, funcionando*
-def menu_principal():
-    print("Qual menu você deseja acessar? 1 - trocar senha.")
-    test = input("digite aqui : ")
-    if test == "1":
-        tela_senha()
-menu_principal()
+        print("Opção inválida!")
+        input("Pressione ENTER para voltar ao menu")
