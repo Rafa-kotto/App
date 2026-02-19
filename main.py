@@ -1,7 +1,7 @@
 from utils import limpar
 from models import Usuario, salvar_usuario, carregar_usuarios, atualizar_senha
 
-# ===== FUNÇÕES =====
+# ===== FUNÇÕES =====   
 
 def tela_inicial():
     limpar()
