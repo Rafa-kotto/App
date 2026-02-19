@@ -28,4 +28,5 @@ if test == "1":
         senhanova = input("Digite sua nova senha : ")
         senhanova == senha ##quero trocar essa parte para que a senha nova substitua a senha velha 
     else:
-        print("Algo esta errado verifique o usuario e a senha")
+        print("Algo esta errado verifique o usuario e a senha") 
+        ()
