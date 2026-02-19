@@ -14,9 +14,9 @@ if not nome or not senha or not email:
 else:
     print("Cadastrado com sucesso!")
     limpar()
-##teste
+##teste ok, funcionando*
 
-print("qual menu deseja acessar -- 1 troca senha")
+print("Qual menu você deseja acessar? 1 - trocar senha.")
 test = input("digite aqui : ")
 if test == "1":
     limpar()
@@ -26,7 +26,14 @@ if test == "1":
     limpar()
     if usuariodigitado == nome and senhadigitada == senha:
         senhanova = input("Digite sua nova senha : ")
-        senhanova == senha ##quero trocar essa parte para que a senha nova substitua a senha velha 
+    
+        while senhanova == senha:
+            print("Sua nova senha deve ser diferente da atual, tente novamente.")
+            senhanova = input("Digite sua nova senha : ")
+            ##mexi aqui, agora deu boa
+        senha = senhanova
+
     else:
         print("Algo esta errado verifique o usuario e a senha") 
-        print("ola")
+    
+print("Senha atual agora é:", senha)
