@@ -1,0 +1,11 @@
+{
+    "usuarios": [
+        {
+            "nome": "rafa",
+            "senha": "123",
+            "email": "r4f4",
+            "peso": "70kg",
+            "altura": "180"
+        }
+    ]
+}
