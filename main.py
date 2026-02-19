@@ -29,4 +29,4 @@ if test == "1":
         senhanova == senha ##quero trocar essa parte para que a senha nova substitua a senha velha 
     else:
         print("Algo esta errado verifique o usuario e a senha") 
-    
+    dadadad
