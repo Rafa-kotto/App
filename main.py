@@ -1,9 +1,8 @@
 from utils import limpar
 
-nome = "a"
-senha = "1"
 limpar()
 def tela_inicial():
+    global nome, senha
     print ("Olá bem vindo ao meu App fit")
     print("Para primeiro acesso digite 1, caso já tenha um usuário digite 2")
     comeco = input("Digite aqui :") 
