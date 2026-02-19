@@ -8,7 +8,7 @@ def tela_inicial():
     print("=== BEM VINDO AO APP FIT ===")
     print("1 - Criar conta")
     print("2 - Login")
-    print("0 - Sair")
+    print("0 - Sairr")
     opcao = input("Digite aqui: ").strip()
     return opcao
 
