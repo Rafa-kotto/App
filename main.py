@@ -74,9 +74,29 @@ def trocar_senha(usuario_logado):
     input("Pressione ENTER para voltar ao menu")
     
     
-def alterar_informações(altura, peso):
-    print(altura)
-    print(peso)
+def alterar_informações(usuario):
+    limpar()
+    usuarios = carregar_usuarios()
+    dados_usuario = None
+    for u in usuarios:
+        if u["nome"] == usuario:
+            dados_usuario = u
+            break
+
+    if not dados_usuario:
+        print("Usuario não encontrado")
+        print("Precione ENTER para tentar novamente")
+    print(f"Seu peso atual é :{dados_usuario.get('peso', 'nao informado')} KG")
+    print(f"Sua altura atual é :{dados_usuario.get('altura', 'nao informado')}Metros")
+    troca = input("Deseja ainda alterar as informações ? (y/n)")
+    if troca == "y":
+            novopeso = input("Seu novo peso = ")
+            novaaltura= input("Sua nova altura = ")
+    elif troca == "n":
+            print("Voltando ao menu principal...")
+            return
+    else:
+            print("Valor invalido digitado")
 
 # ===== LOOP PRINCIPAL =====
 usuario_logado = None
